@@ -162,16 +162,18 @@
   </button>
 
   <!-- Мобильное меню (выпадает) -->
-  <div id="mobile-menu" class="hidden fixed inset-0 bg-slate-950 bg-opacity-95 flex flex-col items-center justify-center gap-8 text-xl z-40">
-    <a href="#" class="opacity-80 hover:opacity-100">Режимы</a>
-    <a href="#" class="opacity-80 hover:opacity-100">Пространство</a>
-    <a href="#" class="opacity-80 hover:opacity-100">О проекте</a>
-    <a href="#" class="opacity-80 hover:opacity-100">Партнерам</a>
-    <a href="#" class="opacity-80 hover:opacity-100">Контакты</a>
-    <button class="border border-cyan-400 px-10 py-3 rounded-full text-sm hover:bg-cyan-400 hover:text-black transition glow-btn mt-4">
-      Приехать
-    </button>
-  </div>
+<div id="mobile-menu" 
+     class="fixed inset-0 bg-slate-950 bg-opacity-95 flex-col items-center justify-center gap-8 text-xl z-40"
+     style="display: none;">
+  <a href="#" class="opacity-80 hover:opacity-100">Режимы</a>
+  <a href="#" class="opacity-80 hover:opacity-100">Пространство</a>
+  <a href="#" class="opacity-80 hover:opacity-100">О проекте</a>
+  <a href="#" class="opacity-80 hover:opacity-100">Партнерам</a>
+  <a href="#" class="opacity-80 hover:opacity-100">Контакты</a>
+  <button class="border border-cyan-400 px-10 py-3 rounded-full text-sm hover:bg-cyan-400 hover:text-black transition glow-btn mt-4">
+    Приехать
+  </button>
+</div>
 </header>
 
 <script>
@@ -179,15 +181,17 @@
   const menu = document.getElementById('mobile-menu');
 
   burger.addEventListener('click', () => {
-    menu.classList.toggle('hidden');
-    menu.classList.toggle('flex');
+    if (menu.style.display === 'none' || menu.style.display === '') {
+      menu.style.display = 'flex';
+      menu.style.flexDirection = 'column';
+    } else {
+      menu.style.display = 'none';
+    }
   });
 
-  // Закрывать при клике на ссылку
   menu.querySelectorAll('a, button').forEach(el => {
     el.addEventListener('click', () => {
-      menu.classList.add('hidden');
-      menu.classList.remove('flex');
+      menu.style.display = 'none';
     });
   });
 </script>
