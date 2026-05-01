@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>О проекте — Лаборатория 404</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #020617; color: #f1f5f9; }
+
+    .glow-text {
+      text-shadow: 0 0 5px #22d3ee, 0 0 10px #22d3ee, 0 0 20px #22d3ee, 0 0 40px #06b6d4;
+    }
+    .glow-btn {
+      box-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee;
+    }
+
+    /* ─── Hero ─── */
+    .about-hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 30%, rgba(34,211,238,0.07), transparent),
+        radial-gradient(ellipse 60% 80% at 10% 70%, rgba(255,140,0,0.06), transparent),
+        linear-gradient(to bottom, rgba(2,6,23,0) 0%, rgba(2,6,23,1) 100%);
+      z-index: 1;
+    }
+    .hero-grid-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(34,211,238,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34,211,238,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent 90%);
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 780px; }
+    .hero-eyebrow {
+      font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: #22d3ee; opacity: 0.6; margin-bottom: 28px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hero-eyebrow::before {
+      content: ""; width: 32px; height: 0.5px; background: #22d3ee; opacity: 0.4;
+    }
+    .hero-title {
+      font-size: clamp(40px, 7vw, 80px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #f1f5f9;
+      margin-bottom: 32px;
+    }
+    .hero-title em { font-style: normal; color: #22d3ee; }
+    .hero-desc {
+      font-size: 16px;
+      color: #64748b;
+      line-height: 1.8;
+      max-width: 520px;
+    }
+
+    /* ─── Floating number ─── */
+    .section-num {
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: #22d3ee; opacity: 0.4; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-num::after { content: ""; flex: 1; height: 0.5px; background: rgba(34,211,238,0.15); }
+
+    /* ─── Универсальный разделитель — на всю ширину экрана ─── */
+    /* Все секции (content-section, philosophy, mission, why-now, principles, cta)
+       получают border-top прямо на теге секции, без ограничения max-width */
+
+    .content-section {
+      padding: 80px 40px;
+      border-top: 0.5px solid rgba(255,255,255,0.05);
+    }
+    /* Внутренний контейнер для ограничения ширины */
+    .content-section-inner {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 300;
+      line-height: 1.2;
+      color: #f1f5f9;
+      margin-bottom: 40px;
+    }
+    .section-title em { font-style: normal; color: #22d3ee; }
+    .body-text {
+      font-size: 15px;
+      color: #64748b;
+      line-height: 1.9;
+      text-align: justify;
+    }
+    .body-text p { margin-bottom: 16px; }
+    .body-text p:last-child { margin-bottom: 0; }
+
+    /* ─── Для кого ─── */
+    .for-whom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 40px;
+    }
+    .for-whom-item {
+      background: rgba(255,255,255,0.02);
+      border: 0.5px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 14px;
+      color: #94a3b8;
+      line-height: 1.6;
+      transition: border-color 0.2s, background 0.2s;
+      text-align: justify;
+    }
+    .for-whom-item:hover {
+      border-color: rgba(34,211,238,0.2);
+      background: rgba(34,211,238,0.02);
+    }
+    .for-whom-dash {
+      display: block;
+      font-size: 20px;
+      color: #22d3ee;
+      opacity: 0.4;
+      margin-bottom: 8px;
+      font-weight: 300;
+    }
+
+    /* ─── Философия — большая цитата ─── */
+    .philosophy-section {
+      padding: 80px 40px;
+      border-top: 0.5px solid rgba(255,255,255,0.05);
+    }
+    .philosophy-inner { max-width: 900px; margin: 0 auto; }
+    .blockquote {
+      border-left: 1px solid rgba(34,211,238,0.3);
+      padding-left: 32px;
+      margin: 40px 0;
+    }
+    .blockquote p {
+      font-size: clamp(18px, 2.5vw, 26px);
+      font-weight: 300;
+      line-height: 1.6;
+      color: #cbd5e1;
+      margin-bottom: 12px;
+      text-align: justify;
+    }
+    .blockquote p:last-child { margin-bottom: 0; }
+
+    /* ─── Миссия — большой текст ─── */
+    .mission-section {
+      padding: 80px 40px;
+      border-top: 0.5px solid rgba(255,255,255,0.05);
+      background: radial-gradient(ellipse 70% 50% at 80% 50%, rgba(34,211,238,0.04), transparent);
+    }
+    .mission-inner { max-width: 900px; margin: 0 auto; }
+    .mission-statement {
+      font-size: clamp(22px, 3.5vw, 40px);
+      font-weight: 300;
+      line-height: 1.4;
+      color: #e2e8f0;
+      margin: 40px 0;
+    }
+    .mission-statement em { font-style: normal; color: #22d3ee; }
+
+    /* ─── Почему сейчас ─── */
+    .why-now-section {
+      padding: 80px 40px;
+      border-top: 0.5px solid rgba(255,255,255,0.05);
+    }
+    .why-inner { max-width: 900px; margin: 0 auto; }
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      overflow: hidden;
+      margin: 48px 0;
+    }
+    .stat-cell {
+      background: #020617;
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 36px;
+      font-weight: 300;
+      color: #22d3ee;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    /* ─── Принципы ─── */
+    .principles-section {
+      padding: 80px 40px 120px;
+      border-top: 0.5px solid rgba(255,255,255,0.05);
+    }
+    .principles-inner { max-width: 900px; margin: 0 auto; }
+    .principles-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 48px;
+    }
+    .principle-item {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 24px;
+      align-items: start;
+      padding: 28px 0;
+      border-top: 0.5px solid rgba(255,255,255,0.05);
+      transition: background 0.2s;
+    }
+    .principle-item:last-child { border-bottom: 0.5px solid rgba(255,255,255,0.05); }
+    .principle-num {
+      font-size: 11px;
+      color: #22d3ee;
+      opacity: 0.4;
+      padding-top: 4px;
+      letter-spacing: 0.1em;
+    }
+    .principle-body {}
+    .principle-title {
+      font-size: 18px;
+      font-weight: 400;
+      color: #f1f5f9;
+      margin-bottom: 8px;
+    }
+    .principle-desc {
+      font-size: 14px;
+      color: #64748b;
+      line-height: 1.7;
+      text-align: justify;
+    }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      padding: 80px 40px 100px;
+      text-align: center;
+      border-top: 0.5px solid rgba(255,255,255,0.05);
+    }
+    .cta-section p {
+      font-size: clamp(18px, 2.5vw, 28px);
+      font-weight: 300;
+      color: #e8e4dc;
+      opacity: 0.6;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .cta-section p:last-of-type { margin-bottom: 48px; opacity: 0.3; }
+    .btn-cta {
+      border: 0.5px solid #22d3ee;
+      color: #22d3ee;
+      padding: 16px 40px;
+      border-radius: 99px;
+      font-size: 14px;
+      background: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: background 0.2s, color 0.2s;
+      box-shadow: 0 0 16px rgba(34,211,238,0.2);
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-cta:hover {
+      background: #22d3ee;
+      color: #020617;
+      box-shadow: 0 0 28px rgba(34,211,238,0.45);
+    }
+
+    /* ─── Header ─── */
+    header { position: sticky; top: 0; z-index: 50; background: rgba(2,6,23,0.85); backdrop-filter: blur(12px); border-bottom: 0.5px solid rgba(255,255,255,0.05); }
+
+    /* ─── Мобайл ─── */
+    @media (max-width: 768px) {
+      .about-hero { padding: 0 24px 60px; }
+      .content-section,
+      .philosophy-section, .mission-section,
+      .why-now-section, .principles-section, .cta-section { padding-left: 24px; padding-right: 24px; }
+      .for-whom-grid { grid-template-columns: 1fr; }
+      .stat-row { grid-template-columns: 1fr; }
+      .principle-item { grid-template-columns: 36px 1fr; gap: 16px; }
+    }
+
+    /* ─── Fade-in на скролл ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="flex justify-between items-center px-4 py-1">
+      <div class="flex items-center gap-2">
+        <img src="logo.png" alt="logo" class="w-20 h-20 object-contain">
+        <div class="text-xl font-semibold glow-text">Лаборатория 404</div>
+      </div>
+
+      <button id="burger" class="md:hidden flex flex-col gap-1.5 z-50 mr-2">
+        <span class="block w-6 h-0.5 bg-white transition-all"></span>
+        <span class="block w-6 h-0.5 bg-white transition-all"></span>
+        <span class="block w-6 h-0.5 bg-white transition-all"></span>
+      </button>
+
+      <nav class="hidden md:flex space-x-10 text-sm opacity-80">
+        <a href="index.html" class="hover:opacity-100 transition-opacity">Главная</a>
+        <a href="rezhimy.html" class="hover:opacity-100 transition-opacity">Режимы</a>
+        <a href="#" class="hover:opacity-100 transition-opacity">Пространство</a>
+        <a href="#" class="hover:opacity-100 transition-opacity">Приехать</a>
+        <a href="o proekte.html" class="text-cyan-400">О проекте</a>
+        <a href="#" class="hover:opacity-100 transition-opacity">Партнерам</a>
+      </nav>
+
+      <a href="index.html" class="hidden md:block border border-cyan-400 px-8 py-3 rounded-full text-sm hover:bg-cyan-400 hover:text-black transition glow-btn mr-8">← Главная</a>
+
+      <div id="mobile-menu" class="fixed inset-0 bg-slate-950 bg-opacity-95 flex-col items-center justify-center gap-8 text-xl z-40" style="display:none;">
+        <a href="index.html" class="opacity-80 hover:opacity-100">Главная</a>
+        <a href="rezhimy.html" class="opacity-80 hover:opacity-100">Режимы</a>
+        <a href="#" class="opacity-80 hover:opacity-100">Пространство</a>
+        <a href="#" class="opacity-80 hover:opacity-100">Приехать</a>
+        <a href="o proekte.html" class="text-cyan-400">О проекте</a>
+        <a href="#" class="opacity-80 hover:opacity-100">Партнерам</a>
+      </div>
+    </div>
+  </header>
+
+  <script>
+    const burger = document.getElementById('burger');
+    const menu = document.getElementById('mobile-menu');
+    burger.addEventListener('click', () => {
+      menu.style.display = (menu.style.display === 'none' || !menu.style.display) ? 'flex' : 'none';
+      if (menu.style.display === 'flex') menu.style.flexDirection = 'column';
+    });
+    menu.querySelectorAll('a').forEach(el => el.addEventListener('click', () => menu.style.display = 'none'));
+  </script>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section class="about-hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">О проекте</div>
+      <h1 class="hero-title">
+        Место, где не нужно<br>
+        быть <em>найденным</em>
+      </h1>
+      <p class="hero-desc">
+        Лаборатория 404 — комьюнити-пространство для тех, кто устал от гонки и нуждается в осознанной паузе.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 01 — ЧТО ЗДЕСЬ ПРОИСХОДИТ ═══════════════ -->
+  <section class="content-section reveal">
+    <div class="content-section-inner">
+      <div class="section-num">01 &nbsp;/&nbsp; Что здесь происходит</div>
+      <h2 class="section-title">Здесь всё <em>иначе</em></h2>
+      <div class="body-text">
+        <p>Лаборатория 404 — это не санаторий, не ретрит, не коворкинг, не лагерь. Это пространство, которое сложно описать привычными словами, потому что оно существует между всеми этими форматами.</p>
+        <p>Здесь живут люди. Общаются, готовят еду, гуляют, молчат, читают, спят. Делают то, что хочется — или не делают ничего. Здесь нет цели, которую нужно достичь к концу пребывания.</p>
+        <p>Есть ритм жизни, который не диктуется, а просто существует. Есть место, где можно быть собой — не функцией, не ролью, не достигатором. Просто человеком.</p>
+        <p>Это звучит просто. На деле — для многих это самое сложное.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 02 — ДЛЯ КОГО ═══════════════ -->
+  <section class="content-section reveal">
+    <div class="content-section-inner">
+      <div class="section-num">02 &nbsp;/&nbsp; Для кого это</div>
+      <h2 class="section-title">Кто будет рядом</h2>
+      <div class="body-text">
+        <p>Мы не ставим диагнозов и не копаемся в вашей жизни. Сюда приезжают очень разные люди — объединяет их одно: внутреннее ощущение, что что-то идёт не так.</p>
+      </div>
+      <div class="for-whom-grid">
+        <div class="for-whom-item">
+          <span class="for-whom-dash">—</span>
+          Устали быть «функциональным». Хочется перестать соответствовать чужим ожиданиям.
+        </div>
+        <div class="for-whom-item">
+          <span class="for-whom-dash">—</span>
+          Всё вроде нормально, но сил нет. Непонятно, откуда взяться энергии на следующий день.
+        </div>
+        <div class="for-whom-item">
+          <span class="for-whom-dash">—</span>
+          Нужна тишина. Настоящая — внешняя и внутренняя.
+        </div>
+        <div class="for-whom-item">
+          <span class="for-whom-dash">—</span>
+          Не хочется ничего достигать. Хочется просто побыть. Без целей и дедлайнов.
+        </div>
+        <div class="for-whom-item">
+          <span class="for-whom-dash">—</span>
+          Хочется побыть среди людей, которые тебя понимают.
+        </div>
+        <div class="for-whom-item">
+          <span class="for-whom-dash">—</span>
+          Формально всё хорошо: работа, деньги, отношения. Но внутри — пусто.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 03 — ФИЛОСОФИЯ ═══════════════ -->
+  <section class="philosophy-section reveal">
+    <div class="philosophy-inner">
+      <div class="section-num">03 &nbsp;/&nbsp; Философия</div>
+
+      <div class="blockquote">
+        <p>Когда сервер отвечает кодом 404 — он честен. Он говорит: «то, что ты ищешь, здесь не найти».</p>
+        <p>Мы взяли этот код как метафору. Место, куда можно уйти, чтобы не быть доступным для внешних запросов — и найти себя.</p>
+        <p>Не найденным системой. Обнаруженным собой.</p>
+      </div>
+      <div class="body-text">
+        <p>Мы верим, что современный человек живёт в состоянии хронической доступности. Всегда онлайн. Всегда на связи. Всегда должен отвечать на запросы — рабочие, социальные, семейные.</p>
+        <p>Это истощает. И это нормально — признать, что так больше невозможно.</p>
+        <p>Лаборатория 404 — это пространство временного выхода из системы. Не побег. Не эскапизм. Осознанная пауза, которая возвращает способность присутствовать.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 04 — МИССИЯ ═══════════════ -->
+  <section class="mission-section reveal">
+    <div class="mission-inner">
+      <div class="section-num">04 &nbsp;/&nbsp; Миссия</div>
+      <h2 class="section-title">Зачем мы существуем</h2>
+      
+      <div class="body-text">
+        <p>Мы не лечим. Мы не трансформируем. Мы не обещаем, что после пребывания у вас появятся цели, энергия и новый смысл жизни.</p>
+        <p>Мы создаём условия. Дальше — ваша собственная внутренняя работа. Или отдых. Или просто присутствие.</p>
+        <p>Мы верим, что ценность человека не определяется его достижениями, скоростью и полезностью. Чтобы быть собой — ему нужно место. Безопасное, тёплое, без требований. Место, где можно просто выдохнуть.</p>
+      </div>
+      <div class="mission-statement">
+        Создать среду, в которой человек может <em>остановиться</em> — и чувствовать себя в безопасности физически и эмоционально. Без давления, без оценки, без необходимости быть продуктивным.
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 05 — ПОЧЕМУ СЕЙЧАС ═══════════════ -->
+  <section class="why-now-section reveal">
+    <div class="why-inner">
+      <div class="section-num">05 &nbsp;/&nbsp; Почему сейчас</div>
+      <h2 class="section-title">Мир изменился.<br>Мы — не успели.</h2>
+
+      <div class="stat-row">
+        <div class="stat-cell">
+          <div class="stat-num">77%</div>
+          <div class="stat-label">работников испытывают<br>выгорание на рабочем месте</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">2× </div>
+          <div class="stat-label">вырос уровень тревожности<br>за последние 10 лет</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">↓ сон</div>
+          <div class="stat-label">среднее время сна сократилось<br>до исторического минимума</div>
+        </div>
+      </div>
+
+      <div class="body-text">
+        <p>Мы выросли в идее бесконечного self-improvement. Пережили экономические кризисы. Живем в эпоху цифрового переутомления.</p>
+        <p>Мы живём в системе, когда отдых принято «заслуживать». Когда пауза воспринимается как слабость. Когда вопрос «как дела?» ждёт ответа «отлично, много работаю».</p>
+        <p>Сейчас появляется новый запрос: не успех, а облегчение существования.</p>
+        <p>Мы отвечаем на этот запрос. Не советами. Пространством. Комьюнити.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 06 — ПРИНЦИПЫ ═══════════════ -->
+  <section class="principles-section reveal">
+    <div class="principles-inner">
+      <div class="section-num">06 &nbsp;/&nbsp; Принципы</div>
+      <h2 class="section-title">Как мы устроены</h2>
+
+      <div class="principles-list">
+        <div class="principle-item">
+          <div class="principle-num">01</div>
+          <div class="principle-body">
+            <div class="principle-title">Никаких обязательств</div>
+            <div class="principle-desc">Никто не ждёт от вас активности, общения, посещения завтрака, участия в жизни пространства. Вы здесь на своих условиях. Хочется лежать — лежите. Хочется говорить — говорите.</div>
+          </div>
+        </div>
+
+        <div class="principle-item">
+          <div class="principle-num">02</div>
+          <div class="principle-body">
+            <div class="principle-title">Безусловное принятие</div>
+            <div class="principle-desc">Не спрашиваем, зачем вы приехали. Не оцениваем, правильно ли вы отдыхаете. Не даём советов, если вы не просите. Просто присутствуем рядом.</div>
+          </div>
+        </div>
+
+        <div class="principle-item">
+          <div class="principle-num">03</div>
+          <div class="principle-body">
+            <div class="principle-title">Честность вместо маркетинга</div>
+            <div class="principle-desc">Мы не обещаем трансформацию, просветление и «новую жизнь». Мы предлагаем честную паузу. Что с ней сделаете — ваш выбор.</div>
+          </div>
+        </div>
+
+        <div class="principle-item">
+          <div class="principle-num">04</div>
+          <div class="principle-body">
+            <div class="principle-title">Живое комьюнити, не программа</div>
+            <div class="principle-desc">Лаборатория 404 — это люди, не расписание. Здесь есть резиденты, которые приезжают надолго, и те, кто проводит неделю. Общение возникает органично — не по команде.</div>
+          </div>
+        </div>
+
+        <div class="principle-item">
+          <div class="principle-num">05</div>
+          <div class="principle-body">
+            <div class="principle-title">Природа как соучастник</div>
+            <div class="principle-desc">Мы намеренно выбрали место вдали от городского шума. Природа здесь не фон — она часть опыта. Воздух, тишина, смена ритма — всё это работает, даже если вы просто сидите на крыльце.</div>
+          </div>
+        </div>
+
+        <div class="principle-item">
+          <div class="principle-num">06</div>
+          <div class="principle-body">
+            <div class="principle-title">Гибкость, не жёсткость</div>
+            <div class="principle-desc">Режимы можно менять. Длительность — корректировать. Мы не ставим людей в рамки. Если вам нужно что-то другое — скажите. Найдём решение.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CTA ═══════════════ -->
+  <section class="cta-section reveal">
+    <p>Возможно, вам не нужно менять жизнь.</p>
+    <p>Возможно, вам нужна пауза.</p>
+    <a href="index.html#form" class="btn-cta">Оставить заявку →</a>
+  </section>
+
+  <!-- ═══════════════ Scroll reveal ═══════════════ -->
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
