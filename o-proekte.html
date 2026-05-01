@@ -172,6 +172,7 @@
       line-height: 1.4;
       color: #e2e8f0;
       margin: 40px 0;
+      text-align: justify;
     }
     .mission-statement em { font-style: normal; color: #22d3ee; }
 
@@ -332,22 +333,24 @@
         <a href="rezhimy.html" class="hover:opacity-100 transition-opacity">Режимы</a>
         <a href="#" class="hover:opacity-100 transition-opacity">Пространство</a>
         <a href="#" class="hover:opacity-100 transition-opacity">Приехать</a>
-        <a href="o-proekte.html" class="text-cyan-400">О проекте</a>
+        <a href="o proekte.html" class="text-cyan-400">О проекте</a>
         <a href="#" class="hover:opacity-100 transition-opacity">Партнерам</a>
       </nav>
 
       <a href="index.html" class="hidden md:block border border-cyan-400 px-8 py-3 rounded-full text-sm hover:bg-cyan-400 hover:text-black transition glow-btn mr-8">← Главная</a>
 
-      <div id="mobile-menu" class="fixed inset-0 bg-slate-950 bg-opacity-95 flex-col items-center gap-8 text-xl z-40" style="display:none; padding-top: 120px; justify-content: flex-start; overflow-y: auto;">
-        <a href="index.html" class="opacity-80 hover:opacity-100">Главная</a>
-        <a href="rezhimy.html" class="opacity-80 hover:opacity-100">Режимы</a>
-        <a href="#" class="opacity-80 hover:opacity-100">Пространство</a>
-        <a href="#" class="opacity-80 hover:opacity-100">Приехать</a>
-        <a href="o-proekte.html" class="text-cyan-400">О проекте</a>
-        <a href="#" class="opacity-80 hover:opacity-100">Партнерам</a>
-      </div>
     </div>
   </header>
+
+  <!-- Мобильное меню — вне хедера, fixed работает корректно -->
+  <div id="mobile-menu" style="display:none; position:fixed; inset:0; background:rgba(2,6,23,0.97); z-index:45; flex-direction:column; align-items:center; justify-content:center; gap:32px; font-size:20px;">
+    <a href="index.html" style="color:#f1f5f9; text-decoration:none; opacity:0.8;">Главная</a>
+    <a href="rezhimy.html" style="color:#f1f5f9; text-decoration:none; opacity:0.8;">Режимы</a>
+    <a href="#" style="color:#f1f5f9; text-decoration:none; opacity:0.8;">Пространство</a>
+    <a href="#" style="color:#f1f5f9; text-decoration:none; opacity:0.8;">Приехать</a>
+    <a href="o proekte.html" style="color:#22d3ee; text-decoration:none;">О проекте</a>
+    <a href="#" style="color:#f1f5f9; text-decoration:none; opacity:0.8;">Партнерам</a>
+  </div>
 
   <script>
     const burger = document.getElementById('burger');
