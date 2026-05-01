@@ -24,23 +24,27 @@
       padding: 0 40px 80px;
       position: relative;
       overflow: hidden;
+      background-image: url('ohero.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
     }
     .about-hero::before {
       content: "";
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 80% 60% at 60% 30%, rgba(34,211,238,0.07), transparent),
-        radial-gradient(ellipse 60% 80% at 10% 70%, rgba(255,140,0,0.06), transparent),
-        linear-gradient(to bottom, rgba(2,6,23,0) 0%, rgba(2,6,23,1) 100%);
+        radial-gradient(ellipse 80% 60% at 60% 30%, rgba(34,211,238,0.05), transparent),
+        radial-gradient(ellipse 60% 80% at 10% 70%, rgba(255,140,0,0.04), transparent),
+        linear-gradient(to bottom, rgba(2,6,23,0.3) 0%, rgba(2,6,23,0.85) 100%);
       z-index: 1;
     }
     .hero-grid-bg {
       position: absolute; inset: 0; z-index: 0;
       background-image:
-        linear-gradient(rgba(34,211,238,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(34,211,238,0.04) 1px, transparent 1px);
+        linear-gradient(rgba(34,211,238,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34,211,238,0.03) 1px, transparent 1px);
       background-size: 60px 60px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent 90%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.2), transparent 90%);
     }
     .hero-content { position: relative; z-index: 2; max-width: 780px; }
     .hero-eyebrow {
@@ -62,7 +66,7 @@
     .hero-title em { font-style: normal; color: #22d3ee; }
     .hero-desc {
       font-size: 16px;
-      color: #64748b;
+      color: #94a3b8;
       line-height: 1.8;
       max-width: 520px;
     }
@@ -75,15 +79,10 @@
     }
     .section-num::after { content: ""; flex: 1; height: 0.5px; background: rgba(34,211,238,0.15); }
 
-    /* ─── Универсальный разделитель — на всю ширину экрана ─── */
-    /* Все секции (content-section, philosophy, mission, why-now, principles, cta)
-       получают border-top прямо на теге секции, без ограничения max-width */
-
     .content-section {
       padding: 80px 40px;
       border-top: 0.5px solid rgba(255,255,255,0.05);
     }
-    /* Внутренний контейнер для ограничения ширины */
     .content-section-inner {
       max-width: 900px;
       width: 100%;
@@ -342,7 +341,7 @@
     </div>
   </header>
 
-  <!-- Мобильное меню — вне хедера, fixed работает корректно -->
+  <!-- Мобильное меню -->
   <div id="mobile-menu" style="display:none; position:fixed; inset:0; background:rgba(2,6,23,0.97); z-index:45; flex-direction:column; align-items:center; justify-content:center; gap:32px; font-size:20px;">
     <a href="index.html" style="color:#f1f5f9; text-decoration:none; opacity:0.8;">Главная</a>
     <a href="rezhimy.html" style="color:#f1f5f9; text-decoration:none; opacity:0.8;">Режимы</a>
