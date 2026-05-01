@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="logo.png">
   <title>Лаборатория 404</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -131,6 +130,126 @@
   padding-top: 80px;
 }
 
+/* ── Переход снизу bg-secondary → тёмный фон формы ── */
+.bg-secondary::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, transparent, #020617);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Форма ── */
+.form-section {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 80px 24px 100px;
+}
+.form-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #475569;
+  margin-bottom: 16px;
+}
+.form-heading {
+  font-size: clamp(24px, 5vw, 36px);
+  font-weight: 300;
+  line-height: 1.25;
+  color: #f1f5f9;
+  margin-bottom: 10px;
+}
+.form-sub {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+.f-label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #475569;
+  margin-bottom: 7px;
+}
+.f-input,
+.f-select,
+.f-textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid rgba(34,211,238,0.15);
+  border-radius: 8px;
+  padding: 13px 15px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: #f1f5f9;
+  outline: none;
+  transition: background 0.2s, border-color 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.f-input::placeholder,
+.f-textarea::placeholder { color: #334155; }
+.f-input:focus,
+.f-select:focus,
+.f-textarea:focus {
+  background: rgba(34,211,238,0.04);
+  border-color: rgba(34,211,238,0.4);
+}
+.f-textarea { resize: none; height: 90px; line-height: 1.6; }
+.f-select-wrap { position: relative; }
+.f-select-wrap::after {
+  content: '';
+  position: absolute;
+  right: 14px; top: 50%;
+  transform: translateY(-50%);
+  width: 9px; height: 5px;
+  background: #475569;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  pointer-events: none;
+}
+.f-select option { background: #0f172a; color: #f1f5f9; }
+.f-mode-row {
+  background: rgba(34,211,238,0.05);
+  border: 0.5px solid rgba(34,211,238,0.25);
+  border-radius: 8px;
+  padding: 11px 15px;
+  font-size: 14px;
+  color: #22d3ee;
+  display: none;
+}
+.f-divider { height: 0.5px; background: rgba(255,255,255,0.06); margin: 28px 0; }
+.f-submit {
+  width: 100%;
+  background: #22d3ee;
+  color: #020617;
+  border: none;
+  border-radius: 99px;
+  padding: 15px 24px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 0 16px rgba(34,211,238,0.35);
+  transition: box-shadow 0.2s, opacity 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.f-submit:hover { box-shadow: 0 0 28px rgba(34,211,238,0.55); opacity: 0.92; }
+.f-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+.f-arrow { transition: transform 0.2s; display: inline-block; }
+.f-submit:not(:disabled):hover .f-arrow { transform: translateX(4px); }
+.f-status { margin-top: 14px; font-size: 13px; text-align: center; min-height: 18px; }
+.f-status.success { color: #4ade80; }
+.f-status.error   { color: #f87171; }
+.f-note { margin-top: 18px; font-size: 12px; color: #334155; text-align: center; line-height: 1.5; }
+.field-gap { margin-bottom: 16px; }
+
 </style>
 </head>
 <body class="bg-slate-950 text-white">
@@ -158,8 +277,8 @@
     <a href="#">Партнерам</a>
   </nav>
 
-  <button class="hidden md:block border border-cyan-400 px-10 py-3 rounded-full text-sm hover:bg-cyan-400 hover:text-black transition glow-btn mr-8">
-    Приехать
+<button onclick="scrollToForm()" class="hidden md:block border border-cyan-400 px-10 py-3 rounded-full text-sm hover:bg-cyan-400 hover:text-black transition glow-btn mr-8">
+    «Выйти из системы»
   </button>
 
   <!-- Мобильное меню (выпадает) -->
@@ -171,11 +290,13 @@
   <a href="#" class="opacity-80 hover:opacity-100">Приехать</a>
   <a href="#" class="opacity-80 hover:opacity-100">О проекте</a>
   <a href="#" class="opacity-80 hover:opacity-100">Партнерам</a>
-  <button class="border border-cyan-400 px-10 py-3 rounded-full text-sm hover:bg-cyan-400 hover:text-black transition glow-btn mt-4">
-    Приехать
+<button onclick="scrollToForm()" class="border border-cyan-400 px-10 py-3 rounded-full text-sm hover:bg-cyan-400 hover:text-black transition glow-btn mt-4">
+    «Выйти из системы»
   </button>
 </div>
 </header>
+
+
 
 <script>
   const burger = document.getElementById('burger');
@@ -209,8 +330,8 @@
 
     <p class="text-xl opacity-80 mb-10">Комьюнити - пространство для тех, кто устал от гонки</p>
 
-    <p class="opacity-60 mb-8">
-      Место, куда можно уехать "на пенсию от системы"
+    <p class="opacity-70 mb-8">
+      Место, куда можно уехать «на пенсию от системы»
     </p>
 
     <button class="bg-cyan-500 text-white  px-6 py-3 rounded-full glow-btn mt-20">
@@ -237,11 +358,16 @@
 
     <div>
       <h2 class="text-2xl mb-6 glow-text">Здесь по-другому:</h2>
-      <ul class="space-y-3 opacity-70">
+      <ul class="space-y-3 opacity-70 mb-6">
         <li>— Не спрашивают про цели</li>
         <li>— Можно просто быть</li>
         <li>— Не нужно достигать</li>
         <li>— Никакой продуктивности</li>
+      </ul>
+      <ul class="space-y-3 opacity-70">
+ <li>Вы просто временно выходите из системы — и возвращаетесь к себе.</li>
+<li>Это не побег от жизни, а осознанная пауза для восстановления связи с собой.</li>
+<li>Лаборатория 404 — это пространство, где можно быть «не найденным» (как системная ошибка 404) для внешних запросов, но «обнаруженным» для самого себя.</li>
       </ul>
     </div>
   </section>
@@ -260,7 +386,7 @@
 <div class="bg-black pt-2 pb-4 px-4 rounded-2xl glow-btn flex flex-col items-center text-center cursor-pointer" onclick="openModal('charge')">
   <img src="r.png" class="w-18 h-18 mb-2 mt-0" alt="icon">
   <h3 class="text-xl mb-1">Подзарядка</h3>
-  <p class="opacity-60 text-sm">Мягкая подзарядка для восполнения энергии</p>
+  <p class="opacity-60 text-sm">Восстановление сил и восполнение энергии</p>
 </div>
 
 <div class="bg-black pt-2 pb-4 px-4 rounded-2xl glow-btn flex flex-col items-center text-center cursor-pointer" onclick="openModal('reload')">
@@ -274,22 +400,80 @@
   <h3 class="text-xl mb-1">Обновить прошивку</h3>
   <p class="opacity-60 text-sm">Новые навыки без гонки</p>
 </div>
+    
 
-      
- </div>  
-  </section>
-
+</div>   
 </section>
 
   <!-- CTA -->
-  <section class="text-center py-20">
-    <button class="bg-cyan-500 text-white px-6 py-3 rounded-full glow-btn whitespace-nowrap">
-      Возможно, вам не нужно менять жизнь.<br>
+  <section class="text-center py-24 px-6">
+    <p class="text-2xl md:text-2xl font-light opacity-70 leading-relaxed" style="color:#e8e4dc; letter-spacing:0.01em;">
+      Возможно, вам не нужно менять жизнь.
+    </p>
+    <p class="text-2xl md:text-2xl font-light mt-3 opacity-50 leading-relaxed" style="color:#e8e4dc; letter-spacing:0.01em;">
       Возможно, вам нужна пауза.
-    </button>
+    </p>
   </section>
 
 </div>
+
+<!-- ===== ФОРМА ЗАЯВКИ ===== -->
+<section id="form" style="background: #020617; ">
+    <div class="form-section">
+      <p class="form-eyebrow">Заявка</p>
+      <h2 class="form-heading">Напишите нам —<br>мы ответим</h2>
+      <p class="form-sub">Без обязательств. Просто расскажите немного о себе.<br>Мы свяжемся и всё обсудим.</p>
+ 
+   
+      <form id="contact-form" action="https://formspree.io/f/xlgzebga" method="POST">
+ 
+        <input type="hidden" name="Режим" id="mode-input" value="">
+ 
+        <div class="field-gap" id="mode-display-wrap" style="display:none;">
+          <p class="f-label">Выбранный режим</p>
+          <div class="f-mode-row" id="mode-display" style="display:block;"></div>
+        </div>
+ 
+        <div class="field-gap">
+          <label class="f-label" for="f-name">Имя</label>
+          <input class="f-input" type="text" id="f-name" name="Имя" placeholder="Как вас зовут" required>
+        </div>
+ 
+        <div class="field-gap">
+          <label class="f-label" for="f-contact">Телефон или почта</label>
+          <input class="f-input" type="text" id="f-contact" name="Контакт" placeholder="+7 900 000 00 00 или hello@mail.ru" required>
+        </div>
+ 
+        <div class="field-gap">
+          <label class="f-label" for="f-dur">Примерная длительность</label>
+          <div class="f-select-wrap">
+            <select class="f-select" id="f-dur" name="Длительность">
+              <option value="">Ещё не знаю</option>
+              <option value="Неделя">Неделя</option>
+              <option value="2 недели">2 недели</option>
+              <option value="Месяц">Месяц</option>
+              <option value="Другое">Другое</option>
+            </select>
+          </div>
+        </div>
+ 
+        <div class="field-gap">
+          <label class="f-label" for="f-comment">Комментарий <span style="opacity:.4; font-size:10px;">(необязательно)</span></label>
+          <textarea class="f-textarea" id="f-comment" name="Комментарий" placeholder="Можно ничего не писать. А можно — что угодно."></textarea>
+        </div>
+ 
+        <div class="f-divider"></div>
+ 
+        <button type="submit" class="f-submit" id="f-submit-btn">
+          <span id="f-btn-text">Отправить заявку</span>
+          <span class="f-arrow">→</span>
+        </button>
+      </form>
+ 
+      <p class="f-status" id="f-status"></p>
+      <p class="f-note">Мы не передаём данные третьим лицам<br>и не пишем без повода.</p>
+    </div>
+  </section>
 
 <!-- ===== СТИЛИ МОДАЛОК ===== -->
 <style>
@@ -427,7 +611,7 @@
       <div class="dur-label">Выберите длительность</div>
       <div class="dur-row">
         <button class="dur-btn active" onclick="selectDur(this)">
-          <div>Неделя</div><div class="dur-sub">Рекомендуем</div>
+          <div>Неделя</div>
         </button>
         <button class="dur-btn" onclick="selectDur(this)">
           <div>2 недели</div>
@@ -437,7 +621,7 @@
         </button>
       </div>
     </div>
-    <div class="modal-footer"><button class="btn-book">Оставить заявку →</button></div>
+    <div class="modal-footer"><button class="btn-book" onclick="bookFromModal('battery', '🔋 Батарея разряжена')">Оставить заявку →</button></div>
   </div>
 </div>
 
@@ -496,7 +680,7 @@
         </button>
       </div>
     </div>
-    <div class="modal-footer"><button class="btn-book">Оставить заявку →</button></div>
+    <div class="modal-footer"><button class="btn-book" onclick="bookFromModal('charge', '⚡ Подзарядка')">Оставить заявку →</button></div>
   </div>
 </div>
 
@@ -557,7 +741,7 @@
         </button>
       </div>
     </div>
-    <div class="modal-footer"><button class="btn-book">Оставить заявку →</button></div>
+    <div class="modal-footer"><button class="btn-book" onclick="bookFromModal('reload', '🔥 Перезагрузка')">Оставить заявку →</button></div>
   </div>
 </div>
 
@@ -619,7 +803,7 @@
         </button>
       </div>
     </div>
-    <div class="modal-footer"><button class="btn-book">Оставить заявку →</button></div>
+    <div class="modal-footer"><button class="btn-book" onclick="bookFromModal('update', '⚙️ Обновить прошивку')">Оставить заявку →</button></div>
   </div>
 </div>
 
@@ -655,8 +839,76 @@
     btn.closest('.dur-row').querySelectorAll('.dur-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
   }
+/* — Кнопка "Оставить заявку" из модалки — */
+  function bookFromModal(modalId, modeName) {
+    // Берём выбранную длительность из этой модалки
+    const modal = document.getElementById('modal-' + modalId);
+    const activeDur = modal.querySelector('.dur-btn.active');
+    const dur = activeDur ? activeDur.querySelector('div:first-child').textContent.trim() : '';
+ 
+    // Закрываем модалку
+    closeModal(modalId);
+ 
+    // Заполняем форму
+    document.getElementById('mode-input').value = modeName;
+    document.getElementById('mode-display').textContent = modeName;
+    document.getElementById('mode-display-wrap').style.display = 'block';
+    if (dur) {
+      const sel = document.getElementById('f-dur');
+      for (let opt of sel.options) {
+        if (opt.value === dur) { sel.value = dur; break; }
+      }
+    }
+ 
+    // Скролл к форме
+    setTimeout(() => {
+      document.getElementById('form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+ 
+  /* — Кнопки "Выйти из системы" → скролл к форме — */
+  function scrollToForm(e) {
+    if (e) e.preventDefault();
+    document.getElementById('form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+ 
+  /* — Отправка формы — */
+  const contactForm = document.getElementById('contact-form');
+  const submitBtn   = document.getElementById('f-submit-btn');
+  const btnText     = document.getElementById('f-btn-text');
+  const statusEl    = document.getElementById('f-status');
+ 
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    btnText.textContent = 'Отправляем...';
+    statusEl.className = 'f-status';
+    statusEl.textContent = '';
+ 
+    try {
+      const res = await fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        statusEl.textContent = 'Заявка отправлена. Мы напишем в ближайшее время.';
+        statusEl.className = 'f-status success';
+        contactForm.reset();
+        document.getElementById('mode-display-wrap').style.display = 'none';
+        btnText.textContent = 'Отправлено ✓';
+      } else {
+        throw new Error();
+      }
+    } catch {
+      statusEl.textContent = 'Что-то пошло не так. Напишите нам напрямую.';
+      statusEl.className = 'f-status error';
+      submitBtn.disabled = false;
+      btnText.textContent = 'Отправить заявку';
+    }
+  });
 </script>
 
-  
+
 </body>
 </html>
