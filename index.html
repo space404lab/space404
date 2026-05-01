@@ -21,7 +21,11 @@
     background-image: url('./mountain_web.webp'); /* сжатая версия */
   }
 }
-
+@media (max-width: 768px) {
+  .bg-hero, .bg-secondary {
+    animation: none;
+  }
+}
 .bg-secondary {
   background: url('./second.jpg');
   background-size: cover;
